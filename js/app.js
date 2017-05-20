@@ -23,7 +23,10 @@ window.Instagram = {
 		var endpoint = this.BASE_URL + '/tags/' + name + '/media/recent?client_id=' + this.config.client_id;
 		this.getJSON(endpoint,callback);
 	},
-
+	/*
+	*this function takes in a tagname and gets the response with all the images with that tagname
+	*right now works for the user and not for all the photos on insta
+	*/
 	tagsByName: function(name, callback ){
 		var endpoint = this.BASE_URL + '/tags/' + name + '/media/recent?access_token='+ this.config.access_token;
 		this.getJSON(endpoint,callback);
@@ -53,23 +56,19 @@ window.Instagram = {
 };
 
 
-//https://instagram.com/oauth/authorize/?client_id=467af6bc7e75480881ba314941d37a91&redirect_uri=http://127.0.0.1&response_type=token&scope=basic+public_content+follower_list+comments+relationships+likes
-
-//code: ac2ce35a50514a1491533d8105c9dc5d
-
-// https://api.instagram.com/oauth/authorize/?client_id=467af6bc7e75480881ba314941d37a91&redirect_uri=http://127.0.0.1&response_type=code
-
-    // curl -F 'client_id=467af6bc7e75480881ba314941d37a91' \
-    // -F 'client_secret=efc2ca7fefc84735abc450e4366adac5' \
-    // -F 'grant_type=authorization_code' \
-    // -F 'redirect_uri=http://127.0.0.1' \
-    // -F 'code=73a653d502484633ba005f114c10c667' \
-    // https://api.instagram.com/oauth/access_token
-
-//234543206.467af6b.a77d34824c27423eb3c8c17f51497806
 
 Instagram.init({
 	client_id	: '467af6bc7e75480881ba314941d37a91',
 	redirectURI : 'http://127.0.0.1',
 	access_token : '234543206.467af6b.a77d34824c27423eb3c8c17f51497806'
 })
+
+$(document).ready(function(){
+	Instagram.tagsByName('senti',function(response){
+		var $instagram = $('#instagram');
+		for (var i = 0; i < response.data.length; i++) {
+			imgUrl = response.data[i].images.low_resolution.url;
+			$instagram.append('<img src="'+imgUrl+'"/>');
+		};
+	})
+});
