@@ -19,8 +19,10 @@ window.Instagram = {
 		this.getPOST(endpoint,callback);
 	},
 
-	popular: function(callback){
-		var endpoint = this.BASE_URL + '/tags/' + name + '/media/recent?client_id=' + this.config.client_id;
+	liked: function(callback){
+		//https://api.instagram.com/v1/users/self/media/liked?access_token=ACCESS-TOKEN
+
+		var endpoint = this.BASE_URL + '/users/self/media/liked?access_token=' + this.config.access_token;
 		this.getJSON(endpoint,callback);
 	},
 	/*
@@ -63,8 +65,26 @@ Instagram.init({
 	access_token : '234543206.467af6b.a77d34824c27423eb3c8c17f51497806'
 })
 
+/*
+this outputs results for a given tag
+*/
+
+// $(document).ready(function(){
+// 	Instagram.popular('senti',function(response){
+// 		var $instagram = $('#instagram');
+// 		for (var i = 0; i < response.data.length; i++) {
+// 			imgUrl = response.data[i].images.low_resolution.url;
+// 			$instagram.append('<img src="'+imgUrl+'"/>');
+// 		};
+// 	})
+// });
+
+/*
+this is to output the recently liked images by the user of the access token
+*/
+
 $(document).ready(function(){
-	Instagram.tagsByName('senti',function(response){
+	Instagram.liked(function(response){
 		var $instagram = $('#instagram');
 		for (var i = 0; i < response.data.length; i++) {
 			imgUrl = response.data[i].images.low_resolution.url;
