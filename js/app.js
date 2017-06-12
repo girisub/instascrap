@@ -60,9 +60,9 @@ window.Instagram = {
 
 
 Instagram.init({
-	client_id	: '467af6bc7e75480881ba314941d37a91',
+	client_id	: '',
 	redirectURI : 'http://127.0.0.1',
-	access_token : '234543206.467af6b.a77d34824c27423eb3c8c17f51497806'
+	access_token : ''
 })
 
 /*
